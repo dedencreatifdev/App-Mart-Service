@@ -11,17 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('teams', function (Blueprint $table) {
+        Schema::create('permisis', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-
-            $table->softDeletes();
+            $table->foreignUuid('level_id')->references('id')->on('levels')->onDelete('cascade');
+            $table->boolean('lihat')->nullable()->default(false);
+            $table->boolean('tambah')->nullable()->default(false);
             $table->timestamps();
         });
-        Schema::create('team_user', function (Blueprint $table) {
+
+        Schema::create('permisi_team', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('team_id')->constrained('teams')->onDelete('cascade');
-            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignUuid('permisi_id')->constrained('permisis')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,7 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teams');
-        Schema::dropIfExists('team_user');
+        Schema::dropIfExists('permisis');
     }
 };

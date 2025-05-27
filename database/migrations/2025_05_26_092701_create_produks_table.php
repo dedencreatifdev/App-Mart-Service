@@ -28,6 +28,12 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+        Schema::create('produk_team', function (Blueprint $table) {
+            $table->id();
+            $table->foreignUuid('produk_id')->constrained('produks')->onDelete('cascade');
+            $table->foreignUuid('team_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -36,5 +42,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('produks');
+        Schema::dropIfExists('produk_team');
     }
 };

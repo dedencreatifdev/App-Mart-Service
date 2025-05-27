@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -19,8 +20,28 @@ class Team extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
+    }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function produks(): BelongsToMany
+    {
+        return $this->belongsToMany(Produk::class);
+    }
+
+    public function levels(): BelongsToMany
+    {
+        return $this->belongsToMany(Level::class);
+    }
+
+    public function Permisis(): BelongsToMany
+    {
+        return $this->belongsToMany(Permisi::class);
     }
 }

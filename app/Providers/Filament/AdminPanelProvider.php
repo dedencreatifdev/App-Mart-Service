@@ -31,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('')
             ->login()
             ->colors([
-                'primary' => '#096B68',
+                'primary' => '#129990',
                 'success' => Color::Emerald,
                 'warning' => Color::Orange,
                 'danger' => Color::Rose,
@@ -85,7 +85,7 @@ class AdminPanelProvider extends PanelProvider
 
             // TEAM
             ->tenant(Team::class)
-            ->tenantRegistration(RegisterTeam::class)
+            // ->tenantRegistration(RegisterTeam::class)
         ;
     }
 }

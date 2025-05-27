@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProdukResource\Pages;
 use App\Filament\Resources\ProdukResource\RelationManagers;
 use App\Models\Produk;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -50,9 +51,7 @@ class ProdukResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('kode')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nama')
@@ -67,6 +66,10 @@ class ProdukResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('hpp')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('Perusahaan')
+                    ->default(Filament::getTenant()->users->first()->name ?? 'Perusahaan')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('deleted_at')
@@ -88,9 +91,22 @@ class ProdukResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\ViewAction::make()
+                        ->icon('heroicon-o-squares-plus')
+                        ->color('primary')
+                        ->requiresConfirmation()
+                        ->modalIcon('heroicon-o-squares-plus')
+                        ->modalHeading('Delete post')
+                        // ->label(__('Tambah User'))
+                        ->modalDescription('Are you sure you\'d like to delete this post? This cannot be undone.')
+                        ->modalIconColor('primary')
+                        ->modalSubmitActionLabel(__('Simpan'))
+                        ->modalCancelActionLabel(__('Batal'))
+                        ->modalWidth('2xl')
+                    // ->slideOver()
+                    ,
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
                 ]),
             ])
             ->bulkActions([

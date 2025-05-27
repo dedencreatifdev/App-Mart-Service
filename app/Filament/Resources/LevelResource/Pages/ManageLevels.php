@@ -1,19 +1,21 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Filament\Resources\LevelResource\Pages;
 
-use {{ resource }};
+use App\Filament\Resources\LevelResource;
 use Filament\Actions;
-use {{ baseResourcePage }};
+use Filament\Resources\Pages\ManageRecords;
 
-class {{ resourcePageClass }} extends {{ baseResourcePageClass }}
+class ManageLevels extends ManageRecords
 {
-    protected static string $resource = {{ resourceClass }}::class;
+    protected static string $resource = LevelResource::class;
+    // protected ?string $subheading = 'Tambah LevelResource';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make()
+            Actions\CreateAction::make()
+                ->createAnother(false)
                 ->icon('heroicon-o-squares-plus')
                 // ->color('primary')
                 // ->requiresConfirmation()
@@ -27,7 +29,7 @@ class {{ resourcePageClass }} extends {{ baseResourcePageClass }}
                 // ->modalHeading(__('Add User'))
                 // ->modalWidth('xl')
                 // ->slideOver()
-            ,
+                ,
         ];
     }
 }

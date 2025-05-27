@@ -1,19 +1,21 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Filament\Resources\PermisiResource\Pages;
 
-use {{ resource }};
+use App\Filament\Resources\PermisiResource;
 use Filament\Actions;
-use {{ baseResourcePage }};
+use Filament\Resources\Pages\ManageRecords;
 
-class {{ resourcePageClass }} extends {{ baseResourcePageClass }}
+class ManagePermisis extends ManageRecords
 {
-    protected static string $resource = {{ resourceClass }}::class;
+    protected static string $resource = PermisiResource::class;
+    // protected ?string $subheading = 'Tambah PermisiResource';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make()
+            Actions\CreateAction::make()
+                ->createAnother(false)
                 ->icon('heroicon-o-squares-plus')
                 // ->color('primary')
                 // ->requiresConfirmation()
@@ -27,7 +29,7 @@ class {{ resourcePageClass }} extends {{ baseResourcePageClass }}
                 // ->modalHeading(__('Add User'))
                 // ->modalWidth('xl')
                 // ->slideOver()
-            ,
+                ,
         ];
     }
 }
