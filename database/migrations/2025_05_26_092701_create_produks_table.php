@@ -31,7 +31,7 @@ return new class extends Migration
         Schema::create('produk_team', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('produk_id')->constrained('produks')->onDelete('cascade');
-            $table->foreignUuid('team_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('team_id')->constrained('teams')->onDelete('cascade');
             $table->timestamps();
         });
     }

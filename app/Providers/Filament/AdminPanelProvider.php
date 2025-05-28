@@ -62,7 +62,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->font('Nunito')
+            ->font('tahoma')
             ->spa()
             ->sidebarWidth('17rem')
             ->maxContentWidth('full')
@@ -81,6 +81,7 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-cog-6-tooth')
                     ->collapsed(),
             ])
+
             ->sidebarFullyCollapsibleOnDesktop()
 
             // TEAM

@@ -40,9 +40,8 @@ class PermisiResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('Level')
-                    ->default(filament::getTenant()->levels->where('name', 'Kasir') ?? '')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('level_id'),
+                Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\IconColumn::make('lihat')
                     ->boolean(),
                 Tables\Columns\IconColumn::make('tambah')

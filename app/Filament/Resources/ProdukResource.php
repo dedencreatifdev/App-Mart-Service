@@ -63,9 +63,11 @@ class ProdukResource extends Resource
                 Tables\Columns\TextColumn::make('brand_id')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('harga')
+                    ->alignEnd()
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('hpp')
+                    ->alignEnd()
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('Perusahaan')
