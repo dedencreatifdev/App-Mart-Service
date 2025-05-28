@@ -35,10 +35,6 @@ class DatabaseSeeder extends Seeder
 
         // Membuat beberapa produk dan mengaitkannya dengan tim
         $tm->produks()->attach(Produk::factory()->count(30)->create()->pluck('id')->toArray());
-        // $produks = Produk::factory(30)->create();
-        // foreach ($produks as $produk) {
-        //     $tm->produks()->attach($produk->id);
-        // }
 
         // Daftar list file dalam folder app/Models
         $files = scandir(app_path('Models'));
@@ -51,9 +47,6 @@ class DatabaseSeeder extends Seeder
         }, $files);
 
         foreach ($filesWithoutPhp as $file) {
-            // Menggunakan dump untuk menampilkan nama file tanpa ekstensi .php
-            // dump($file);
-            // Membuat beberapa produk dan mengaitkannya dengan tim
             $perm = Permisi::factory()->create([
                 'name' => $file,
                 'level_id' => $lvl->id,
