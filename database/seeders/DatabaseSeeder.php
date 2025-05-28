@@ -57,6 +57,8 @@ class DatabaseSeeder extends Seeder
             $perm = Permisi::factory()->create([
                 'name' => $file,
                 'level_id' => $lvl->id,
+                'view' => true,
+                'tambah' => true,
             ]);
             $tm->permisis()->attach($perm->id);
         }

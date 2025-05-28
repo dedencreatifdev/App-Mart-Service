@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('level_id')->references('id')->on('levels')->onDelete('cascade');
             $table->string('name');
-            $table->boolean('lihat')->nullable()->default(false);
+            $table->boolean('view')->nullable()->default(false);
             $table->boolean('tambah')->nullable()->default(false);
             $table->timestamps();
         });
