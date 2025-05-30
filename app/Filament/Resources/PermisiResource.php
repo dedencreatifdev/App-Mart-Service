@@ -22,7 +22,7 @@ class PermisiResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Settings';
-    protected static bool $shouldRegisterNavigation = false;
+    // protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {
@@ -38,11 +38,19 @@ class PermisiResource extends Resource
             ]);
     }
 
+    public static function getTable(Table $table): Table
+    {
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('name'),
+            ]);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                // Tables\Columns\TextColumn::make('level_id'),
+                Tables\Columns\TextColumn::make('level_id'),
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\IconColumn::make('list')
                     ->boolean(),
@@ -78,7 +86,7 @@ class PermisiResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->whereNot('name', 'Permisi')->whereNot('name', 'Team');
+        return parent::getEloquentQuery()->where('level_id', '=', request('level_id'))->whereNot('name', 'Permisi')->whereNot('name', 'Team');
     }
 
     public static function getPages(): array

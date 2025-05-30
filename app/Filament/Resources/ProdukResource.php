@@ -73,21 +73,16 @@ class ProdukResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('Perusahaan')
-                    ->default(Filament::getTenant()->users->first()->name ?? 'Perusahaan')
+                    ->default(function (Produk $produk, $record) {
+                        if (Filament::auth()->user()->level_id == null) {
+                            return 'No Perusahaan';
+                        }else {
+                            return Filament::getTenant()->name ?? 'No Perusahaan';
+                        }
+                        // return Filament::auth()->user()->level->permis->where('name','Level')->first()->list ?? 'No Level';
+                    })
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->striped()
             ->filters([

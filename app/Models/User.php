@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\HasTenants;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -28,6 +29,7 @@ class User extends Authenticatable implements  HasTenants
         'name',
         'email',
         'password',
+        'level_id',
     ];
 
     /**
@@ -72,5 +74,11 @@ class User extends Authenticatable implements  HasTenants
     public function canAccessTenant(Model $tenant): bool
     {
         return $this->teams()->whereKey($tenant)->exists();
+    }
+
+    // --------------------LEVEL
+    public function level(): BelongsTo
+    {
+        return $this->BelongsTo(Level::class);
     }
 }

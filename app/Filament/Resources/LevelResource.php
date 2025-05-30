@@ -25,6 +25,7 @@ class LevelResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->columnSpanFull()
                     ->required()
                     ->maxLength(255),
             ]);
@@ -47,22 +48,26 @@ class LevelResource extends Resource
                     Tables\Actions\Action::make('akses')
                         ->icon('heroicon-o-clipboard-document-check')
                         ->color('primary')
+                        ->label(__('Hak Akses'))
                         ->requiresConfirmation()
                         ->modalIcon('heroicon-o-clipboard-document-check')
-                        ->modalHeading('Ubah Pelanggan')
-                        ->label(__('Hak Akses'))
-                        ->modalDescription('Are you sure you\'d like to delete this post? This cannot be undone.')
+                        ->modalHeading('Role Hak Akses')
+                        ->modalDescription('Silahkan Ubah Hak Akses Sesuai Role.')
                         ->modalIconColor('primary')
                         ->modalSubmitActionLabel(__('Simpan'))
                         ->modalCancelActionLabel(__('Batal'))
-                        ->modalWidth('xl'),
+                        ->modalWidth('xl')
+                        ->modalContent(
+
+
+                        ),
                     Tables\Actions\EditAction::make()
-                    ->icon('heroicon-o-clipboard-document-check')
+                        ->icon('heroicon-o-clipboard-document-check')
                         ->color('primary')
                         ->requiresConfirmation()
                         ->modalIcon('heroicon-o-clipboard-document-check')
                         ->modalHeading('Ubah Pelanggan')
-                        ->label(__('Hak Akses'))
+                        ->label(__('Ubah'))
                         ->modalDescription('Are you sure you\'d like to delete this post? This cannot be undone.')
                         ->modalIconColor('primary')
                         ->modalSubmitActionLabel(__('Simpan'))

@@ -21,22 +21,26 @@ class DatabaseSeeder extends Seeder
         $tm = Team::factory()->create();
 
         $usr = User::factory()->create([
-            // 'id' => '0197110e-9395-736e-8738-f2216b092358',
-            // 'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
         $tm->users()->attach($usr->id);
 
-        //
-        $lvl = Level::factory()->create([
+        $usrs = User::factory()->count(5)->create();
+        $tm->users()->attach($usrs->pluck('id')->toArray());
+
+        // LEVEL
+        $lvl_it = Level::factory()->create([
             'name' => 'IT',
         ]);
-        $tm->levels()->attach($lvl->id);
+        $tm->levels()->attach($lvl_it->id);
 
-        // Membuat beberapa produk dan mengaitkannya dengan tim
+        $lvls = Level::factory()->count(4)->create();
+        $tm->levels()->attach($lvls->pluck('id')->toArray());
+
+        // PRODUK
         $tm->produks()->attach(Produk::factory()->count(30)->create()->pluck('id')->toArray());
 
-        // Daftar list file dalam folder app/Models
+        // PERMISI
         $files = scandir(app_path('Models'));
         $files = array_values(array_filter($files, function ($file) {
             return is_file(app_path('Models/' . $file));
@@ -46,26 +50,45 @@ class DatabaseSeeder extends Seeder
             return preg_replace('/\.php$/', '', $file);
         }, $files);
 
-        foreach ($filesWithoutPhp as $file) {
-            $perm = Permisi::factory()->create([
-                'name' => $file,
-                'level_id' => $lvl->id,
-                'list' => true,
-                // 'tambah' => true,
-            ]);
-            $tm->permisis()->attach($perm->id);
+        foreach ($lvls as $lvl) {
+            foreach ($filesWithoutPhp as $file) {
+                if ($lvl->name == 'IT') {
+                    $akses = 1;
+                } else {
+                    $akses = 0;
+                }
+                $perm = Permisi::factory()->create([
+                    'name' => $file,
+                    'level_id' => $lvl->id,
+                    'list' => $akses,
+                    'detail' => $akses,
+                    'tambah' => $akses,
+                    'ubah' => $akses,
+                    'hapus' => $akses,
+                    'hapus_semua' => $akses,
+                ]);
+                $tm->permisis()->attach($perm->id);
+            }
+            //
         }
 
-        // dump('Daftar file tanpa .php:', $filesWithoutPhp);
-
-        // $tm->produks()->attach($produks->id);
-
-        // Filament::getTenant()->usr;
-
-        // User::factory(100)->create();
-        // $this->call([
-        //     TeamSeeder::class,
-        //     ProdukSeeder::class,
-        // ]);
+        foreach ($filesWithoutPhp as $file) {
+            if ($lvl->name == 'IT '. $file) {
+                $akses = 1;
+            } else {
+                $akses = 0;
+            }
+            $perm_it = Permisi::factory()->create([
+                'name' => $file,
+                'level_id' => $lvl_it->id,
+                'list' => true,
+                'detail' => true,
+                'tambah' => true,
+                'ubah' => true,
+                'hapus' => true,
+                'hapus_semua' => true,
+            ]);
+            $tm->permisis()->attach($perm_it->id);
+        }
     }
 }

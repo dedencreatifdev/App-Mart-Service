@@ -36,6 +36,10 @@ class UserResource extends Resource
                     ->hiddenOn('edit')
                     ->password()
                     ->required(),
+                Forms\Components\Select::make('level_id')
+                    ->label('Level')
+                    ->options(Filament::getTenant()->levels->pluck('name', 'id'))
+                    ->searchable(),
             ]);
     }
 
@@ -50,14 +54,13 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('level')
-                    ->default(Filament::getTenant()->levels->first()->name ?? 'Perusahaan')
-                    // ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('Permisi')
-                    ->default(Filament::getTenant()->permisis->where('name','User')->first()->name ?? 'Perusahaan')
-                    // ->dateTime()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('levels')
+                    ->default(function (User $user, $record) {
+                        return Filament::auth()->user()->email ?? 'No Level';
+                    })
+                    ->label('Level')
+                    ->searchable(),
+
             ])
             ->striped()
             ->filters([
