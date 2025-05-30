@@ -15,8 +15,14 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('level_id')->references('id')->on('levels')->onDelete('cascade');
             $table->string('name');
-            $table->boolean('view')->nullable()->default(false);
+            $table->boolean('list')->nullable()->default(false);
+            $table->boolean('detail')->nullable()->default(false);
             $table->boolean('tambah')->nullable()->default(false);
+            $table->boolean('ubah')->nullable()->default(false);
+            $table->boolean('hapus')->nullable()->default(false);
+            $table->boolean('hapus_semua')->nullable()->default(false);
+            $table->boolean('import')->nullable()->default(false);
+            $table->boolean('export')->nullable()->default(false);
             $table->timestamps();
         });
 
@@ -34,5 +40,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('permisis');
+        Schema::dropIfExists('permisi_team');
     }
 };

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\LevelResource\Pages;
+namespace App\Filament\Resources\PelangganResource\Pages;
 
-use App\Filament\Resources\LevelResource;
+use App\Filament\Resources\PelangganResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
-class ManageLevels extends ManageRecords
+class ManagePelanggans extends ManageRecords
 {
-    protected static string $resource = LevelResource::class;
-    // protected ?string $subheading = 'Tambah LevelResource';
+    protected static string $resource = PelangganResource::class;
+    // protected ?string $subheading = 'Tambah PelangganResource';
 
     protected function getHeaderActions(): array
     {
@@ -19,13 +19,14 @@ class ManageLevels extends ManageRecords
                 ->icon('heroicon-o-squares-plus')
                 ->color('primary')
                 ->requiresConfirmation()
-                ->modalIcon('heroicon-o-lock-closed')
-                ->modalHeading('Tambah Level')
-                // ->label(__('Tambah User'))
+                ->modalIcon('heroicon-o-squares-plus')
+                ->modalHeading('Delete post')
+                ->label(__('Tambah User'))
                 ->modalDescription('Are you sure you\'d like to delete this post? This cannot be undone.')
                 ->modalIconColor('primary')
                 ->modalSubmitActionLabel(__('Simpan'))
                 ->modalCancelActionLabel(__('Batal'))
+                ->modalHeading(__('Add User'))
                 ->modalWidth('xl')
                 // ->slideOver()
                 ,

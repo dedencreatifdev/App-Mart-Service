@@ -44,4 +44,9 @@ class Team extends Model
     {
         return $this->belongsToMany(Permisi::class);
     }
+
+    public function pelanggans(): BelongsToMany
+    {
+        return $this->belongsToMany(Pelanggan::class);
+    }
 }

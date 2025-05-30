@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LevelResource\Pages;
-use App\Filament\Resources\LevelResource\RelationManagers;
-use App\Models\Level;
+use App\Filament\Resources\PelangganResource\Pages;
+use App\Filament\Resources\PelangganResource\RelationManagers;
+use App\Models\Pelanggan;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class LevelResource extends Resource
+class PelangganResource extends Resource
 {
-    protected static ?string $model = Level::class;
+    protected static ?string $model = Pelanggan::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Settings';
@@ -25,8 +25,7 @@ class LevelResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
+                    ->maxLength(100),
             ]);
     }
 
@@ -34,9 +33,19 @@ class LevelResource extends Resource
     {
         return $table
             ->columns([
-
+                Tables\Columns\TextColumn::make('id')
+                    ->label('ID')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->striped()
             ->filters([
@@ -44,25 +53,13 @@ class LevelResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\Action::make('akses')
+                    Tables\Actions\EditAction::make()
                         ->icon('heroicon-o-clipboard-document-check')
                         ->color('primary')
                         ->requiresConfirmation()
                         ->modalIcon('heroicon-o-clipboard-document-check')
                         ->modalHeading('Ubah Pelanggan')
-                        ->label(__('Hak Akses'))
-                        ->modalDescription('Are you sure you\'d like to delete this post? This cannot be undone.')
-                        ->modalIconColor('primary')
-                        ->modalSubmitActionLabel(__('Simpan'))
-                        ->modalCancelActionLabel(__('Batal'))
-                        ->modalWidth('xl'),
-                    Tables\Actions\EditAction::make()
-                    ->icon('heroicon-o-clipboard-document-check')
-                        ->color('primary')
-                        ->requiresConfirmation()
-                        ->modalIcon('heroicon-o-clipboard-document-check')
-                        ->modalHeading('Ubah Pelanggan')
-                        ->label(__('Hak Akses'))
+                        ->label(__('Ubah Pelanggan'))
                         ->modalDescription('Are you sure you\'d like to delete this post? This cannot be undone.')
                         ->modalIconColor('primary')
                         ->modalSubmitActionLabel(__('Simpan'))
@@ -81,7 +78,7 @@ class LevelResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageLevels::route('/'),
+            'index' => Pages\ManagePelanggans::route('/'),
         ];
     }
 }

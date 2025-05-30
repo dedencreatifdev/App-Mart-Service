@@ -83,10 +83,11 @@ class AdminPanelProvider extends PanelProvider
             ])
 
             ->sidebarFullyCollapsibleOnDesktop()
+            // ->topNavigation()
 
             // TEAM
             ->tenant(Team::class)
-            // ->tenantRegistration(RegisterTeam::class)
+            ->tenantRegistration(RegisterTeam::class)
         ;
     }
 }

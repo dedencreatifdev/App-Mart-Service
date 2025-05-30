@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
         //
         $lvl = Level::factory()->create([
-            'name' => 'Admin',
+            'name' => 'IT',
         ]);
         $tm->levels()->attach($lvl->id);
 
@@ -50,8 +50,8 @@ class DatabaseSeeder extends Seeder
             $perm = Permisi::factory()->create([
                 'name' => $file,
                 'level_id' => $lvl->id,
-                'view' => true,
-                'tambah' => true,
+                'list' => true,
+                // 'tambah' => true,
             ]);
             $tm->permisis()->attach($perm->id);
         }

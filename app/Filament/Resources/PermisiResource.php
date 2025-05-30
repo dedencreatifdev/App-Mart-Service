@@ -22,16 +22,18 @@ class PermisiResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Settings';
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('level_id')
+                    ->columnSpanFull()
                     ->label('Level')
                     ->options(Level::all()->pluck('name', 'id'))
                     ->searchable(),
-                Forms\Components\Toggle::make('lihat'),
+                Forms\Components\Toggle::make('view'),
                 Forms\Components\Toggle::make('tambah'),
             ]);
     }
@@ -40,11 +42,21 @@ class PermisiResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('level_id'),
+                // Tables\Columns\TextColumn::make('level_id'),
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\IconColumn::make('lihat')
+                Tables\Columns\IconColumn::make('list')
                     ->boolean(),
                 Tables\Columns\IconColumn::make('tambah')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('ubah')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('hapus')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('hapus_semua')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('import')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('export')
                     ->boolean(),
             ])
             ->striped()
@@ -62,6 +74,11 @@ class PermisiResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->whereNot('name', 'Permisi')->whereNot('name', 'Team');
     }
 
     public static function getPages(): array

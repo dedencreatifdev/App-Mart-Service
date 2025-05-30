@@ -54,14 +54,10 @@ class UserResource extends Resource
                     ->default(Filament::getTenant()->levels->first()->name ?? 'Perusahaan')
                     // ->dateTime()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('Permisi')
+                    ->default(Filament::getTenant()->permisis->where('name','User')->first()->name ?? 'Perusahaan')
+                    // ->dateTime()
+                    ->sortable(),
             ])
             ->striped()
             ->filters([

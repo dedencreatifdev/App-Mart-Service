@@ -50,6 +50,8 @@ class ProdukResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->queryStringIdentifier('produks')
+            ->extremePaginationLinks()
             ->columns([
 
                 Tables\Columns\TextColumn::make('kode')
