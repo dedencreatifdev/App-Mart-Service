@@ -49,4 +49,8 @@ class Team extends Model
     {
         return $this->belongsToMany(Pelanggan::class);
     }
+    public function satuans(): BelongsToMany
+    {
+        return $this->belongsToMany(Satuan::class);
+    }
 }

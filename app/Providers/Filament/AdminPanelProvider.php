@@ -30,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('')
             ->login()
+            ->registration()
             ->colors([
                 'primary' => '#129990',
                 'success' => Color::Emerald,
@@ -63,19 +64,22 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->font('tahoma')
-            ->spa()
+            // ->spa()
             ->sidebarWidth('17rem')
             ->maxContentWidth('full')
             ->navigationGroups([
                 NavigationGroup::make()
-                    ->label('Produk')
-                    ->icon('heroicon-o-shopping-cart'),
+                    ->label('Master Produk')
+                    ->icon('heroicon-o-squares-2x2'),
                 NavigationGroup::make()
                     ->label('Transaksi')
                     ->icon('heroicon-o-pencil'),
                 NavigationGroup::make()
                     ->label('Master Data')
                     ->icon('heroicon-o-pencil'),
+                NavigationGroup::make()
+                    ->label('Managemen User')
+                    ->icon('heroicon-o-user-group'),
                 NavigationGroup::make()
                     ->label('Settings')
                     ->icon('heroicon-o-cog-6-tooth')

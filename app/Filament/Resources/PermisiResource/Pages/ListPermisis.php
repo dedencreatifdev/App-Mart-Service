@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\UserResource\Pages;
+namespace App\Filament\Resources\PermisiResource\Pages;
 
-use App\Filament\Resources\UserResource;
+use App\Filament\Resources\PermisiResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListUsers extends ListRecords
+class ListPermisis extends ListRecords
 {
-    protected static string $resource = UserResource::class;
-    protected static ?string $title = 'User List';
-    // protected ?string $subheading = 'Daftar UserResource';
+    protected static string $resource = PermisiResource::class;
+    // protected ?string $subheading = 'Daftar PermisiResource';
 
     protected function getHeaderActions(): array
     {

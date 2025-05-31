@@ -20,14 +20,6 @@ class DatabaseSeeder extends Seeder
     {
         $tm = Team::factory()->create();
 
-        $usr = User::factory()->create([
-            'email' => 'test@example.com',
-        ]);
-        $tm->users()->attach($usr->id);
-
-        $usrs = User::factory()->count(5)->create();
-        $tm->users()->attach($usrs->pluck('id')->toArray());
-
         // LEVEL
         $lvl_it = Level::factory()->create([
             'name' => 'IT',
@@ -37,8 +29,23 @@ class DatabaseSeeder extends Seeder
         $lvls = Level::factory()->count(4)->create();
         $tm->levels()->attach($lvls->pluck('id')->toArray());
 
+        // User
+        $usr = User::factory()->create([
+            'email' => 'test@example.com',
+            'level_id' => $lvl_it->id
+        ]);
+        $tm->users()->attach($usr->id);
+
+        $usrs = User::factory()->count(5)->create();
+        $tm->users()->attach($usrs->pluck('id')->toArray());
+
+
+
         // PRODUK
         $tm->produks()->attach(Produk::factory()->count(30)->create()->pluck('id')->toArray());
+
+        // SATUAN
+        $tm->satuans()->attach(\App\Models\Satuan::factory()->count(15)->create()->pluck('id')->toArray());
 
         // PERMISI
         $files = scandir(app_path('Models'));

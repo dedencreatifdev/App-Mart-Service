@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\UserResource\Pages;
+namespace App\Filament\Resources\SatuanResource\Pages;
 
-use App\Filament\Resources\UserResource;
+use App\Filament\Resources\SatuanResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListUsers extends ListRecords
+class ListSatuans extends ListRecords
 {
-    protected static string $resource = UserResource::class;
-    protected static ?string $title = 'User List';
-    // protected ?string $subheading = 'Daftar UserResource';
+    protected static string $resource = SatuanResource::class;
+    // protected ?string $subheading = 'Daftar SatuanResource';
 
     protected function getHeaderActions(): array
     {

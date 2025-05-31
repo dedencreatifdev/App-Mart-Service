@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\PermisiResource\Pages;
+namespace App\Filament\Resources\LevelResource\Pages;
 
-use App\Filament\Resources\PermisiResource;
+use App\Filament\Resources\LevelResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ManageRecords;
+use Filament\Resources\Pages\ListRecords;
 
-class ManagePermisis extends ManageRecords
+class ListLevels extends ListRecords
 {
-    protected static string $resource = PermisiResource::class;
-    // protected ?string $subheading = 'Tambah PermisiResource';
+    protected static string $resource = LevelResource::class;
+    protected static ?string $title = 'User Groups';
+    protected ?string $subheading = 'Daftar LevelResource';
 
     protected function getHeaderActions(): array
     {
@@ -21,7 +22,7 @@ class ManagePermisis extends ManageRecords
                 // ->requiresConfirmation()
                 // ->modalIcon('heroicon-o-squares-plus')
                 // ->modalHeading('Delete post')
-                // ->label(__('Tambah User'))
+                ->label(__('Tambah Level Group'))
                 // ->modalDescription('Are you sure you\'d like to delete this post? This cannot be undone.')
                 // ->modalIconColor('primary')
                 // ->modalSubmitActionLabel(__('Simpan'))
@@ -29,7 +30,7 @@ class ManagePermisis extends ManageRecords
                 // ->modalHeading(__('Add User'))
                 // ->modalWidth('xl')
                 // ->slideOver()
-                ,
+            ,
         ];
     }
 }

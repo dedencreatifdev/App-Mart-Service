@@ -18,16 +18,18 @@ class LevelResource extends Resource
     protected static ?string $model = Level::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Settings';
+    protected static ?string $navigationGroup = 'Managemen User';
+    protected static ?string $navigationLabel = 'Groups Perizinan';
+
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->columnSpanFull()
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(25)
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -35,8 +37,8 @@ class LevelResource extends Resource
     {
         return $table
             ->columns([
-
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nama Level Role')
                     ->searchable(),
             ])
             ->striped()
@@ -45,35 +47,9 @@ class LevelResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\Action::make('akses')
-                        ->icon('heroicon-o-clipboard-document-check')
-                        ->color('primary')
-                        ->label(__('Hak Akses'))
-                        ->requiresConfirmation()
-                        ->modalIcon('heroicon-o-clipboard-document-check')
-                        ->modalHeading('Role Hak Akses')
-                        ->modalDescription('Silahkan Ubah Hak Akses Sesuai Role.')
-                        ->modalIconColor('primary')
-                        ->modalSubmitActionLabel(__('Simpan'))
-                        ->modalCancelActionLabel(__('Batal'))
-                        ->modalWidth('xl')
-                        ->modalContent(
-
-
-                        ),
                     Tables\Actions\EditAction::make()
-                        ->icon('heroicon-o-clipboard-document-check')
-                        ->color('primary')
-                        ->requiresConfirmation()
-                        ->modalIcon('heroicon-o-clipboard-document-check')
-                        ->modalHeading('Ubah Pelanggan')
-                        ->label(__('Ubah'))
-                        ->modalDescription('Are you sure you\'d like to delete this post? This cannot be undone.')
-                        ->modalIconColor('primary')
-                        ->modalSubmitActionLabel(__('Simpan'))
-                        ->modalCancelActionLabel(__('Batal'))
-                        ->modalWidth('xl'),
-                    Tables\Actions\DeleteAction::make(),
+                        ->icon('heroicon-o-squares-plus')
+                        ->color('primary'),
                 ]),
             ])
             ->bulkActions([
@@ -83,10 +59,19 @@ class LevelResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageLevels::route('/'),
+            'index' => Pages\ListLevels::route('/'),
+            'create' => Pages\CreateLevel::route('/create'),
+            'edit' => Pages\EditLevel::route('/{record}/edit'),
         ];
     }
 }

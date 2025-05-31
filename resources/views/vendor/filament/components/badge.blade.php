@@ -162,7 +162,7 @@
     @endif
 
     <span class="grid">
-        <span class="truncate">
+        <span class="truncate text-sm">
             {{ $slot }}
         </span>
     </span>

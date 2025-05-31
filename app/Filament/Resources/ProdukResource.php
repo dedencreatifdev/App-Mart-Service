@@ -19,7 +19,8 @@ class ProdukResource extends Resource
     protected static ?string $model = Produk::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Settings';
+    protected static ?string $navigationGroup = 'Master Produk';
+    protected static ?string $navigationLabel = 'Produk List';
 
     public static function form(Form $form): Form
     {
@@ -72,19 +73,9 @@ class ProdukResource extends Resource
                     ->alignEnd()
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('Perusahaan')
-                    ->default(function (Produk $produk, $record) {
-                        if (Filament::auth()->user()->level_id == null) {
-                            return 'No Perusahaan';
-                        }else {
-                            return Filament::getTenant()->name ?? 'No Perusahaan';
-                        }
-                        // return Filament::auth()->user()->level->permis->where('name','Level')->first()->list ?? 'No Level';
-                    })
-                    ->numeric()
-                    ->sortable(),
             ])
             ->striped()
+            ->paginated([15, 30, 45, 60, 100, 'all'])
             ->filters([
                 //
             ])
