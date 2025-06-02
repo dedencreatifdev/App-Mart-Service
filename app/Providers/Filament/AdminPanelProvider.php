@@ -91,7 +91,7 @@ class AdminPanelProvider extends PanelProvider
             ])
 
             ->sidebarFullyCollapsibleOnDesktop()
-            // ->topNavigation()
+            ->topNavigation()
 
             // TEAM
             ->tenant(Team::class)

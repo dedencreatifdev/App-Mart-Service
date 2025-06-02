@@ -17,7 +17,8 @@ class BrandFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'kode'=> $this->faker->unique()->bothify('KST-#####'),
+            'nama'=> $this->faker->randomElement(['Oli', 'Filter', 'Transmisi', 'Perseling']),
         ];
     }
 }

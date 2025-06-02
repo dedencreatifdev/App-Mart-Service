@@ -7,10 +7,16 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Brand extends Model
 {
     /** @use HasFactory<\Database\Factories\BrandFactory> */
     use HasFactory, Notifiable, HasUuids, SoftDeletes;
     protected $guarded = [];
+
+    public function team(): BelongsToMany
+    {
+        return $this->belongsToMany(Team::class);
+    }
 }

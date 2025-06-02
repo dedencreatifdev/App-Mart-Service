@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ProdukResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ProdukResource\RelationManagers;
+use App\Models\Brand;
 
 class ProdukResource extends Resource
 {
@@ -47,8 +48,15 @@ class ProdukResource extends Resource
                     ->label('Kategori')
                     ->options(Kategori::all()->pluck('nama', 'id'))
                     ->required(),
-                TextInput::make('brand_id')
+                Select::make('brand_id')
+                    ->label('Brand')
+                    ->options(Brand::all()->pluck('nama', 'id'))
                     ->required(),
+                TextInput::make('lokasi'),
+                TextInput::make('stok'),
+                TextInput::make('disc_max')
+                    ->numeric()
+                    ->default(0),
                 TextInput::make('harga')
                     ->numeric()
                     ->default(0),
@@ -79,7 +87,7 @@ class ProdukResource extends Resource
                 TextColumn::make('getKategori.nama')
                     ->label('Kategori')
                     ->searchable(),
-                TextColumn::make('brand_id')
+                TextColumn::make('getBrand.nama')
                     ->label('Brand')
                     ->searchable(),
                 TextColumn::make('lokasi')

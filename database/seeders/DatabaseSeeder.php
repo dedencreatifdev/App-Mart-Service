@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
+use App\Models\Kategori;
 use App\Models\Level;
 use App\Models\Permisi;
 use App\Models\Produk;
@@ -95,7 +97,15 @@ class DatabaseSeeder extends Seeder
                 'hapus' => true,
                 'hapus_semua' => true,
             ]);
+
+
             $tm->permisis()->attach($perm_it->id);
         }
+
+        // Kategory
+        $tm->kategoris()->attach(Kategori::factory()->count(10)->create()->pluck('id')->toArray());
+
+        // Kategory
+        $tm->brands()->attach(Brand::factory()->count(10)->create()->pluck('id')->toArray());
     }
 }

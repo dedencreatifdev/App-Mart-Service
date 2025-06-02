@@ -49,7 +49,7 @@ class Team extends Model
     {
         return $this->belongsToMany(Pelanggan::class);
     }
-    
+
     public function satuans(): BelongsToMany
     {
         return $this->belongsToMany(Satuan::class);
@@ -58,5 +58,10 @@ class Team extends Model
     public function kategoris(): BelongsToMany
     {
         return $this->belongsToMany(Kategori::class);
+    }
+
+    public function brands(): BelongsToMany
+    {
+        return $this->belongsToMany(Brand::class);
     }
 }

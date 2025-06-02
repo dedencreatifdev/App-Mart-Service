@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\PelangganResource\Pages;
+namespace App\Filament\Resources\BrandResource\Pages;
 
-use App\Filament\Resources\PelangganResource;
+use App\Filament\Resources\BrandResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
-class ManagePelanggans extends ManageRecords
+class ManageBrands extends ManageRecords
 {
-    protected static string $resource = PelangganResource::class;
-    // protected ?string $subheading = 'Tambah PelangganResource';
+    protected static string $resource = BrandResource::class;
+    // protected ?string $subheading = 'Tambah BrandResource';
 
     protected function getHeaderActions(): array
     {

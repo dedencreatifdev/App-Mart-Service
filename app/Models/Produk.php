@@ -28,11 +28,16 @@ class Produk extends Model
      */
     public function getSatuan(): BelongsTo
     {
-        return $this->belongsTo(Satuan::class,'satuan_id','id');
+        return $this->belongsTo(Satuan::class, 'satuan_id', 'id');
     }
 
     public function getKategori(): BelongsTo
     {
-        return $this->belongsTo(Kategori::class,'kategori_id','id');
+        return $this->belongsTo(Kategori::class, 'kategori_id', 'id');
+    }
+
+    public function getBrand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class, 'brand_id', 'id');
     }
 }
