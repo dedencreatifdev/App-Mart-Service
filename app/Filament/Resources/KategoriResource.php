@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SatuanResource\Pages;
-use App\Filament\Resources\SatuanResource\RelationManagers;
-use App\Models\Satuan;
+use App\Filament\Resources\KategoriResource\Pages;
+use App\Filament\Resources\KategoriResource\RelationManagers;
+use App\Models\Kategori;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,25 +13,26 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SatuanResource extends Resource
+class KategoriResource extends Resource
 {
-    protected static ?string $model = Satuan::class;
+    protected static ?string $model = Kategori::class;
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Master Produk';
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('kode')
-                    ->unique(ignoreRecord: true)
-                    ->maxLength(25),
+                    ->required()
+                    ->maxLength(100),
                 Forms\Components\TextInput::make('nama')
+                    ->required()
                     ->maxLength(100),
                 Forms\Components\FileUpload::make('image')
-                    ->columnSpanFull(),
+                    ->image(),
             ]);
     }
 
@@ -39,53 +40,35 @@ class SatuanResource extends Resource
     {
         return $table
             ->columns([
-
+                
                 Tables\Columns\TextColumn::make('kode')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nama')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('image'),
+                
             ])
             ->striped()
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                //
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
                 ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSatuans::route('/'),
-            'create' => Pages\CreateSatuan::route('/create'),
-            'edit' => Pages\EditSatuan::route('/{record}/edit'),
+            'index' => Pages\ManageKategoris::route('/'),
         ];
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
     }
 }

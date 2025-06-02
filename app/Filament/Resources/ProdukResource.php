@@ -2,17 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProdukResource\Pages;
-use App\Filament\Resources\ProdukResource\RelationManagers;
-use App\Models\Produk;
-use Filament\Facades\Filament;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use PhpOption\Option;
+use App\Models\Produk;
+use App\Models\Satuan;
+use App\Models\Kategori;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Facades\Filament;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\ProdukResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ProdukResource\RelationManagers;
 
 class ProdukResource extends Resource
 {
@@ -21,28 +28,34 @@ class ProdukResource extends Resource
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Master Produk';
     protected static ?string $navigationLabel = 'Produk List';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('kode')
+                TextInput::make('kode')
+                    ->unique(ignoreRecord: true)
                     ->required(),
-                Forms\Components\TextInput::make('nama')
+                TextInput::make('nama')
                     ->required(),
-                Forms\Components\TextInput::make('satuan_id')
+                Select::make('satuan_id')
+                    ->label('Satuan')
+                    ->options(Satuan::all()->pluck('nama', 'id'))
                     ->required(),
-                Forms\Components\TextInput::make('kategori_id')
+                Select::make('kategori_id')
+                    ->label('Kategori')
+                    ->options(Kategori::all()->pluck('nama', 'id'))
                     ->required(),
-                Forms\Components\TextInput::make('brand_id')
+                TextInput::make('brand_id')
                     ->required(),
-                Forms\Components\TextInput::make('harga')
+                TextInput::make('harga')
                     ->numeric()
                     ->default(0),
-                Forms\Components\TextInput::make('hpp')
+                TextInput::make('hpp')
                     ->numeric()
                     ->default(0),
-                Forms\Components\Textarea::make('keterangan')
+                Textarea::make('keterangan')
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -55,24 +68,38 @@ class ProdukResource extends Resource
             ->extremePaginationLinks()
             ->columns([
 
-                Tables\Columns\TextColumn::make('kode')
+                TextColumn::make('kode')
+                    ->label('Kode Barang')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('nama')
+                TextColumn::make('nama')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('satuan_id')
+                TextColumn::make('getSatuan.nama')
+                    ->label('Satuan')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('kategori_id')
+                TextColumn::make('getKategori.nama')
+                    ->label('Kategori')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('brand_id')
+                TextColumn::make('brand_id')
+                    ->label('Brand')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('harga')
+                TextColumn::make('lokasi')
+                    ->label('Lokasi')
+                    ->searchable(),
+                TextColumn::make('harga')
+                    ->label('Harga Jual')
                     ->alignEnd()
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('hpp')
+                    ->numeric(),
+                TextColumn::make('hpp')
+                    ->label('Harga Hpp')
                     ->alignEnd()
-                    ->numeric()
-                    ->sortable(),
+                    ->numeric(),
+                TextColumn::make('stok')
+                    ->label('Stok Minimal')
+                    ->alignEnd()
+                    ->numeric(),
+                TextColumn::make('disc_max')
+                    ->alignEnd()
+                    ->numeric(),
             ])
             ->striped()
             ->paginated([15, 30, 45, 60, 100, 'all'])
@@ -95,7 +122,17 @@ class ProdukResource extends Resource
                         ->modalWidth('2xl')
                     // ->slideOver()
                     ,
-                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\EditAction::make()
+                        ->color('warning')
+                        ->requiresConfirmation()
+                        ->modalIcon('heroicon-o-squares-plus')
+                        ->modalHeading('Ubah Produk')
+                        // ->label(__('Tambah User'))
+                        ->modalDescription('Are you sure you\'d like to delete this post? This cannot be undone.')
+                        ->modalIconColor('warning')
+                        ->modalSubmitActionLabel(__('Simpan'))
+                        ->modalCancelActionLabel(__('Batal'))
+                        ->modalWidth('2xl'),
                     Tables\Actions\DeleteAction::make(),
                 ]),
             ])

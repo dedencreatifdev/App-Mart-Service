@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('satuans', function (Blueprint $table) {
+        Schema::create('brands', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('kode', 100);
             $table->string('nama', 100);
@@ -20,10 +20,10 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('satuan_team', function (Blueprint $table) {
+        Schema::create('brand_team', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('team_id')->constrained('teams')->onDelete('cascade');
-            $table->foreignUuid('satuan_id')->constrained('satuans')->onDelete('cascade');
+            $table->foreignUuid('brand_id')->constrained('brands')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('satuans');
+        Schema::dropIfExists('brands');
     }
 };

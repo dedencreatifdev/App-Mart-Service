@@ -11,6 +11,7 @@ use Filament\Support\Colors\Color;
 use Filament\Navigation\NavigationGroup;
 use Filament\Http\Middleware\Authenticate;
 use App\Filament\Pages\Tenancy\RegisterTeam;
+use App\Filament\Pages\Tenancy\EditTeamProfile;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -78,8 +79,11 @@ class AdminPanelProvider extends PanelProvider
                     ->label('Master Data')
                     ->icon('heroicon-o-pencil'),
                 NavigationGroup::make()
+                    ->label('Pelanggan & Supplier')
+                    ->icon('heroicon-o-users'),
+                NavigationGroup::make()
                     ->label('Managemen User')
-                    ->icon('heroicon-o-user-group'),
+                    ->icon('heroicon-o-building-storefront'),
                 NavigationGroup::make()
                     ->label('Settings')
                     ->icon('heroicon-o-cog-6-tooth')
@@ -92,6 +96,7 @@ class AdminPanelProvider extends PanelProvider
             // TEAM
             ->tenant(Team::class)
             ->tenantRegistration(RegisterTeam::class)
+            ->tenantProfile(EditTeamProfile::class)
         ;
     }
 }

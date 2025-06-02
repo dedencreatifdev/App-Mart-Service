@@ -17,6 +17,7 @@ class SatuanFactory extends Factory
     public function definition(): array
     {
         return [
+            'kode'=> $this->faker->unique()->bothify('KST-#####'),
             'nama' => $this->faker->randomElement(['Pcs', 'Pc', 'Set', 'Buah', 'Kg', 'Lembar', 'Box', 'Dus', 'Karung', 'Pack', 'Batang', 'Meter', 'Liter', 'Gelas', 'Karton', 'Sachet', 'Botol', 'Kaleng', 'Gulung', 'Paket']),
         ];
     }

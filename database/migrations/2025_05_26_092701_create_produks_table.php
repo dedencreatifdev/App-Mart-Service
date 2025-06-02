@@ -19,9 +19,12 @@ return new class extends Migration
             $table->string('satuan_id', 100);
             $table->string('kategori_id', 100);
             $table->string('brand_id', 100);
+            $table->string('lokasi', 15)->nullable();
 
             $table->double('harga', 15, 8)->nullable()->default(0.00);
             $table->double('hpp', 15, 8)->nullable()->default(0.00);
+            $table->double('stok', 15, 8)->nullable()->default(0.00); 
+            $table->double('disc_max', 15, 8)->nullable()->default(0.00);
 
             $table->text('keterangan');
 

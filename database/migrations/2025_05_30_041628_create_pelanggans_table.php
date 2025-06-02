@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('pelanggans', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name', 100)->nullable();
+
+            $table->string('nama', 100);
+            $table->text('alamat')->nullable();
+            $table->string('kota', 100)->nullable();
+            $table->string('kode_pos', 100)->nullable();
+            $table->string('email', 100)->nullable();
+            $table->string('no_telp', 100)->nullable();
+            $table->string('logo')->nullable();
+            $table->boolean('status')->default(true);
+
             $table->softDeletes();
             $table->timestamps();
         });
