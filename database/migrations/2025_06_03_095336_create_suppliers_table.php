@@ -11,19 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('brands', function (Blueprint $table) {
+        Schema::create('suppliers', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('kode', 100);
-            $table->string('nama', 100);
-            $table->string('image')->nullable();
-            $table->softDeletes();
+            
             $table->timestamps();
         });
 
-        // Schema::create('brand_team', function (Blueprint $table) {
+        // Schema::create('suppliers_team', function (Blueprint $table) {
         //     $table->id();
         //     $table->foreignUuid('team_id')->constrained('teams')->onDelete('cascade');
-        //     $table->foreignUuid('brand_id')->constrained('brands')->onDelete('cascade');
+        //     $table->foreignUuid('suppliers_id')->constrained('suppliers')->onDelete('cascade');
         //     $table->timestamps();
         // });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('brands');
+        Schema::dropIfExists('suppliers');
     }
 };
